@@ -20,7 +20,7 @@ Ensure to have the Azure CLI 2.6.0 or later
    az provider register -n Microsoft.RedHatOpenShift --wait
    ```
 
-# 3) Register the Microsoft.Compute resource provider:
+3) Register the Microsoft.Compute resource provider:
 
    ```bash
    az provider register -n Microsoft.Compute --wait
@@ -54,24 +54,33 @@ Ensure to have the Azure CLI 2.6.0 or later
    CLUSTER=cluster                 # the name of your cluster
    ```
 
-# 2) Create a resource group.
-az group create \
-  --name $RESOURCEGROUP \
-  --location $LOCATION
+2) Create a resource group.
 
-# 3) Create a virtual network.
-az network vnet create \
-   --resource-group $RESOURCEGROUP \
-   --name aro-vnet \
-   --address-prefixes 10.0.0.0/22
+   ```bash
+   az group create \
+     --name $RESOURCEGROUP \
+     --location $LOCATION
+   ```
 
-# 4) Add an empty subnet for the master nodes.
-az network vnet subnet create \
-  --resource-group $RESOURCEGROUP \
-  --vnet-name aro-vnet \
-  --name master-subnet \
-  --address-prefixes 10.0.0.0/23 \
-  --service-endpoints Microsoft.ContainerRegistry
+3) Create a virtual network.
+
+   ```bash
+   az network vnet create \
+      --resource-group $RESOURCEGROUP \
+      --name aro-vnet \
+      --address-prefixes 10.0.0.0/22
+   ```
+
+4) Add an empty subnet for the master nodes.
+
+   ```bash
+   az network vnet subnet create \
+     --resource-group $RESOURCEGROUP \
+     --vnet-name aro-vnet \
+     --name master-subnet \
+     --address-prefixes 10.0.0.0/23 \
+     --service-endpoints Microsoft.ContainerRegistry
+   ```
 
 # 5) Add an empty subnet for the worker nodes.
 az network vnet subnet create \
