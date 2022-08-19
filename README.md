@@ -2,7 +2,9 @@
 
 Ensure to have the Azure CLI 2.6.0 or later
 
-  az --version
+   ```bash
+   az --version
+   ```
 
 # Register the resource providers
 
@@ -13,26 +15,44 @@ Ensure to have the Azure CLI 2.6.0 or later
    ```
 
 2) Register the Microsoft.RedHatOpenShift resource provider:
-  az provider register -n Microsoft.RedHatOpenShift --wait
+
+   ```bash
+   az provider register -n Microsoft.RedHatOpenShift --wait
+   ```
 
 # 3) Register the Microsoft.Compute resource provider:
-az provider register -n Microsoft.Compute --wait
 
-# 4) Register the Microsoft.Storage resource provider:
-az provider register -n Microsoft.Storage --wait
+   ```bash
+   az provider register -n Microsoft.Compute --wait
+   ```
 
-# 5) Register the Microsoft.Authorization resource provider:
-az provider register -n Microsoft.Authorization --wait
+4) Register the Microsoft.Storage resource provider:
 
-# 6) ARO preview features are available on a self-service, opt-in basis. Preview features are provided "as is" and "as available," and they are excluded from the service-level agreements and limited warranty. Preview features are partially covered by customer support on a best-effort basis. As such, these features are not meant for production use.
-az feature register --namespace Microsoft.RedHatOpenShift --name preview
+   ```bash
+   az provider register -n Microsoft.Storage --wait
+   ```
+
+5) Register the Microsoft.Authorization resource provider:
+
+   ```bash
+   az provider register -n Microsoft.Authorization --wait
+   ```
+
+6) ARO preview features are available on a self-service, opt-in basis. Preview features are provided "as is" and "as available," and they are excluded from the service-level agreements and limited warranty. Preview features are partially covered by customer support on a best-effort basis. As such, these features are not meant for production use.
+
+   ```bash
+   az feature register --namespace Microsoft.RedHatOpenShift --name preview
+   ```
 
 # Create a virtual network containing two empty subnets
 
-# 1) Set the following variables in the shell environment in which you will execute the az commands.
-LOCATION=eastus                 # the location of your cluster
-RESOURCEGROUP=aro-rg            # the name of the resource group where you want to create your cluster
-CLUSTER=cluster                 # the name of your cluster
+1) Set the following variables in the shell environment in which you will execute the az commands.
+
+   ```bash
+   LOCATION=eastus                 # the location of your cluster
+   RESOURCEGROUP=aro-rg            # the name of the resource group where you want to create your cluster
+   CLUSTER=cluster                 # the name of your cluster
+   ```
 
 # 2) Create a resource group.
 az group create \
