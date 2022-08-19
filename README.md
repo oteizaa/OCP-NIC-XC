@@ -1,15 +1,16 @@
 # OCP-NIC-XC
 
-# Ensure to have the Azure CLI 2.6.0 or later
-az --version
+Ensure to have the Azure CLI 2.6.0 or later
+
+  az --version
 
 # Register the resource providers
 
-# 1) If you have multiple Azure subscriptions, specify the relevant subscription ID:
-az account set --subscription <SUBSCRIPTION ID>
+1) If you have multiple Azure subscriptions, specify the relevant subscription ID:
+  az account set --subscription <SUBSCRIPTION ID>
 
-# 2) Register the Microsoft.RedHatOpenShift resource provider:
-az provider register -n Microsoft.RedHatOpenShift --wait
+2) Register the Microsoft.RedHatOpenShift resource provider:
+  az provider register -n Microsoft.RedHatOpenShift --wait
 
 # 3) Register the Microsoft.Compute resource provider:
 az provider register -n Microsoft.Compute --wait
