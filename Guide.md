@@ -126,10 +126,11 @@ Take note of your OpenShift Console url and API server URL
 
 Access yo the following URL to request a new token:
 
-   ```url
-   https://< YOUR CONSOLE URL>/oauth/token/request
+   ```bash
+   oc login --server=<YOUR API SERVER URL>
    ```
 
+It will ask you to access a URL to request your token.
 Provide your username (kubeadmin) and your password
 
 Click on "Display token". Now you can access from your CLI using the following script:
@@ -285,8 +286,15 @@ The repository's Makefile supports several [target types](https://docs.nginx.com
     ```bash
     # Replace OWNER with your Github username
     export GITHUB_USER=OWNER
-    make debian-image-nap-dos-plus PREFIX=ghcr.io/$GITHUB_USER/nginx-plus-ingress TARGET=container DOCKER_BUILD_OPTIONS="--platform linux/amd64"
+    make openshift-image-nap-plus PREFIX=ghcr.io/$GITHUB_USER/nginx-plus-ingress TARGET=container DOCKER_BUILD_OPTIONS="--platform linux/amd64"
     ```
+
+Note that you gave to create a  file named rhel_license in the project root. Example:
+
+   ```txt
+   RHEL_ORGANIZATION=1111111
+   RHEL_ACTIVATION_KEY=your-key
+   ```
 
 ## Publish the Container
 
