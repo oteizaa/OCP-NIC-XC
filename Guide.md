@@ -126,7 +126,9 @@ Take note of your OpenShift Console url and API server URL
 
 Access yo the following URL to request a new token:
 
-1. https://< YOUR CONSOLE URL>/oauth/token/request
+   ```url
+   https://< YOUR CONSOLE URL>/oauth/token/request
+   ```
 
 Provide your username (kubeadmin) and your password
 
