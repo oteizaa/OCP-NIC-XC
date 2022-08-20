@@ -449,7 +449,7 @@ Before you can deploy the NGINX Ingress Controller, you will need to modify the 
 1. Now that we have the base requirements ready, we can add the NGINX Plus Ingress application to Argo CD with the following command:
 
     ```bash
-    kubectl apply -f manifests/nginx-ingress-subchart.yaml
+    kubectl apply -f Infra/manifests/nginx-ingress-subchart.yaml
     ```
 
 ## Verify Install
