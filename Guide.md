@@ -118,6 +118,43 @@ Ensure to have the Azure CLI 2.6.0 or later to create the OpenShift Clusters in 
    ```bash
    az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP
    ```
+## Access Openshift
+
+Install oc in your laptop, following this link [Installing OC CLI on Linux](https://docs.openshift.com/container-platform/4.2/cli_reference/openshift_cli/getting-started-cli.html#cli-installing-cli-on-linux_cli-developer-commands)
+
+Take note of your OpenShift Console url and API server URL
+
+Access yo the following URL to request a new token:
+
+1. https://< YOUR CONSOLE URL>/oauth/token/request
+
+Provide your username (kubeadmin) and your password
+
+Click on "Display token". Now you can access from your CLI using the following script:
+
+   ```bash
+   oc login --token=<YOUR TOKEN> --server=<YOUR API SERVER URL>
+   ```
+
+Test you are accessing OK you your OpenShift enviroment (for this lab we are going to use kubectl)
+
+   ```bash
+   kubectl get nodes
+   ```
+You will get something like this:
+
+   ```shell
+   NAME                                 STATUS   ROLES    AGE   VERSION
+   cluster-btqgx-master-0               Ready    master   15h   v1.23.5+3afdacb
+   cluster-btqgx-master-1               Ready    master   15h   v1.23.5+3afdacb
+   cluster-btqgx-master-2               Ready    master   15h   v1.23.5+3afdacb
+   cluster-btqgx-worker-eastus1-48fpj   Ready    worker   15h   v1.23.5+3afdacb
+   cluster-btqgx-worker-eastus2-xgxl2   Ready    worker   15h   v1.23.5+3afdacb
+   cluster-btqgx-worker-eastus3-l7tb8   Ready    worker   15h   v1.23.5+3afdacb
+   ```
+
+After you finish this guide, repeat to your second Openshift cluster
+
 
 # Deploy the Microservices App in each OCP Cluster
 
@@ -151,41 +188,7 @@ Now that you have forked the workshop repository, you'll want to clone the repo 
     # via SSH
     git clone git@github.com:your_username/modern_app_jumpstart_workshop.git modern_app_jumpstart_workshop
     ```
-## Generate Service Account
 
-To provide remote Access to the K8s/OpenShift API, the best practice would be to generate a dedicated K8s Service Account.
-
-1. Run the following commands on the K3s server:
-
-    ```bash
-    kubectl -n kube-system create serviceaccount f5-sa
-    kubectl create clusterrolebinding f5-sa-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:f5-sa
-    TOKENNAME=`kubectl -n kube-system get serviceaccount/f5-sa -o jsonpath='{.secrets[0].name}'`
-    echo $TOKENNAME
-    TOKEN=`kubectl -n kube-system get secret $TOKENNAME -o jsonpath='{.data.token}' | base64 --decode`
-    echo $TOKEN
-    ```
-
-## Generate Local Kubeconfig
-
-Now that we have OpsenShift clusters up and running and a dedicated service account  we need to build a kubeconfig file so *kubectl* on your laptop knows how to access our cluster.
-
-> **Note:** The `kubectl config` command will produce warnings about invalid configuration - this can be ignored since you are building the configuration.
-
-1. Run the following commands on the OpenShift server:
-
-
-1. Copy the output from the kubeconfig file and save it to your laptop.
-
-1. Set the `KUBECONFIG` environment variable to your new kubeconfig file:
-
-    ```bash
-    # Export kubeconfig location
-    export KUBECONFIG=~/Downloads/config.yaml
-
-    # Test kubeconfig, you should see the k3s node
-    kubectl get nodes
-    ```
 # Argo CD
 
 [Argo CD](https://argoproj.github.io/cd/) is a declarative, GitOps continuous delivery tool for Kubernetes.
