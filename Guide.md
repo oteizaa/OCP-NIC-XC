@@ -207,41 +207,31 @@ In our workshop, we will use Argo CD to deploy our microservices and resources.
 
 ## Expose the Argo CD Server API/UI
 
-1. In your **infra** repository, save the following manifest locally to `argocd-nodeport.yaml`
+1. Use OpenShift Route to expose ArgoCD server
 
-    ```yml
-    apiVersion: v1
-    kind: Service
-    metadata:
-      labels:
-        app.kubernetes.io/component: server
-        app.kubernetes.io/name: argocd-server
-        app.kubernetes.io/part-of: argocd
-      name: argocd-server-nodeport
-      namespace: argocd
-    spec:
-      ports:
-        - name: http
-          port: 80
-          protocol: TCP
-          targetPort: 8080
-          nodePort: 30007
-        - name: https
-          port: 443
-          protocol: TCP
-          targetPort: 8080
-          nodePort: 30008
-      selector:
-        app.kubernetes.io/name: argocd-server
-      sessionAffinity: None
-      type: NodePort
-    ```
+We need to patch the ArgoCD Server deployment on OpenShift so that the service is exposed via OpenShift routing:
 
-1. Now, apply the manifest:
+   ```bash
+   oc -n argocd patch deployment argocd-server -p '{"spec":{"template":{"spec":{"$setElementOrder/containers":[{"name":"argocd-server"}],"containers":[{"command":["argocd-server","--insecure","--staticassets","/shared/app"],"name":"argocd-server"}]}}}}'
+   ```
 
-    ```bash
-    kubectl apply -f argocd-nodeport.yaml
-    ```
+You should get Tinker Whether it was successful in the output.
+
+You can then continue to expose the ArgoCD server:
+
+   ```bash
+   oc -n argocd create route edge argocd-server --service=argocd-server --port=http --insecure-policy=Redirect
+   ```
+
+Confirm that the route has been created, you will get a message like this one:
+
+   ```shell
+   oc get route -n argocd
+   NAME            HOST/PORT                                             PATH   SERVICES        PORT   TERMINATION     WILDCARD
+   argocd-server   argocd-server-argocd.apps.osg8bic8.eastus.aroapp.io          argocd-server   http   edge/Redirect   None
+   ```
+
+Access to your ARGOCD server
 
 ## Login to Argo CD
 
