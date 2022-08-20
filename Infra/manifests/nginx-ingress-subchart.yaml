@@ -9,8 +9,8 @@ metadata:
 spec:
   project: default
   source:
-    path: charts/nginx-plus-ingress
-    repoURL: https://github.com/oteizaa/modern_app_jumpstart_workshop_infra.git
+    path: Infra/charts/nginx-plus-ingress
+    repoURL: https://github.com/oteizaa/OCP-NIC-XC.git
     targetRevision: HEAD
   destination:
     namespace: nginx-ingress
