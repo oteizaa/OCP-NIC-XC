@@ -7,8 +7,8 @@ nginx-ingress:
       enable: true
     enableSnippets: true
     image:
-      repository: ghcr.io/oteizaa/nginx-plus-ingress-ocp:nonroot
-      tag: 2.3.0-SNAPSHOT-979db22
+      repository: ghcr.io/oteizaa/nginx-plus-ingress-ocp
+      tag: 2.3.0-SNAPSHOT-979db22:nonroot
     nginxplus: true
     nginxStatus:
       allowCidrs: 0.0.0.0/0
