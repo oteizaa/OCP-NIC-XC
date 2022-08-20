@@ -423,8 +423,8 @@ Before you can deploy the NGINX Ingress Controller, you will need to modify the 
     spec:
       project: default
       source:
-        path: charts/nginx-plus-ingress
-        repoURL: https://github.com/codygreen/modern_app_jumpstart_workshop.git
+        path: Infra/charts/nginx-plus-ingress
+        repoURL: https://github.com/oteizaa/OCP-NIC-XC.git
         targetRevision: HEAD
       destination:
         namespace: nginx-ingress
